@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JayRegular — Photography, Video & Content</title>
+  <meta name="description" content="Yu (Jay) Fei — photographer, videographer and content creator based in Sydney. Editorial, street and gear review work.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0A0A0A;
+      --surface: #111111;
+      --card:    #181818;
+      --border:  #242424;
+      --border2: #333333;
+      --white:   #F0EDE8;
+      --muted:   #6A6A6A;
+      --dim:     #3A3A3A;
+
+      /* monotone base — color reserved for hover/active states only */
+      --accent:  #FF5A36;
+      --accent2: #E8492A;
+      --accent-dim: rgba(255,90,54,0.12);
+
+      --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-body:    Georgia, 'Times New Roman', serif;
+      --font-ui:      system-ui, sans-serif;
+
+      --gap: clamp(1rem, 4vw, 2.5rem);
+      --page: 1100px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-ui);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; width: 100%; height: 100%; object-fit: cover; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* ── LAYOUT ── */
+    .wrap { max-width: var(--page); margin: 0 auto; padding: 0 var(--gap); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      max-width: var(--page); margin: 0 auto; padding: 0 var(--gap);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 15px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--white);
+    }
+    .nav-logo span { transition: color 0.15s; }
+    .nav-logo:hover span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a {
+      font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--white); color: var(--black);
+      border: 1px solid var(--white); padding: 8px 18px; font-weight: 700;
+      transition: all 0.15s;
+    }
+    .nav-cta:hover { background: var(--accent); border-color: var(--accent); color: var(--white); }
+    .nav-mobile-toggle {
+      display: none; background: none; border: none;
+      color: var(--white); font-size: 22px; line-height: 1;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding-top: 56px;
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+    }
+    .hero-main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 56px);
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: clamp(2rem, 6vw, 5rem) var(--gap) clamp(2rem, 5vw, 4rem);
+      border-right: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.5rem;
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(38px, 6vw, 72px);
+      font-weight: 700; line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 2rem;
+    }
+    .hero-headline em {
+      font-style: normal; color: var(--white);
+      display: block; position: relative;
+    }
+    .hero-headline em::after {
+      content: ''; position: absolute; left: 0; bottom: 0.08em;
+      width: 100%; height: 0.1em; background: var(--accent);
+      z-index: -1; opacity: 0.85;
+    }
+    .hero-desc {
+      font-family: var(--font-body);
+      font-size: clamp(15px, 1.5vw, 18px);
+      color: var(--muted); line-height: 1.7;
+      max-width: 420px; margin-bottom: 2.5rem;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 700; padding: 12px 24px; border: none;
+      transition: all 0.15s;
+    }
+    .btn-accent { background: var(--white); color: var(--black); border: 1px solid var(--white); }
+    .btn-accent:hover { background: var(--accent); border-color: var(--accent); color: var(--white); }
+    .btn-ghost {
+      background: transparent; color: var(--white);
+      border: 1px solid var(--border2);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-right {
+      position: relative; overflow: hidden;
+      background: var(--surface);
+      display: flex; align-items: flex-end;
+    }
+    .hero-visual {
+      width: 100%; height: 100%; min-height: 500px;
+      background:
+        linear-gradient(to top, rgba(10,10,10,0.8) 0%, transparent 50%),
+        linear-gradient(145deg, #1A1A1A 0%, #0D0D0D 40%, #161616 100%);
+      display: flex; align-items: flex-end; padding: 2rem;
+      position: relative;
+    }
+    .hero-visual img { position: absolute; inset: 0; z-index: 0; }
+    .hero-visual-label {
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); position: relative; z-index: 1;
+    }
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--border);
+    }
+    .hero-stat {
+      padding: 1.5rem var(--gap);
+      border-right: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .hero-stat:hover { background: var(--surface); }
+    .hero-stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 28px; font-weight: 700;
+      color: var(--white); line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-num span { color: var(--muted); }
+    .stat-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden; padding: 12px 0;
+      background: var(--surface);
+    }
+    .marquee-track {
+      display: flex; gap: 3rem; width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-item {
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--dim); white-space: nowrap;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .marquee-item::after { content: "✦"; color: var(--muted); font-size: 8px; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── SECTION COMMON ── */
+    section { padding: clamp(4rem, 8vw, 7rem) 0; }
+    .section-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 2.5rem; padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label {
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 4vw, 40px);
+      font-weight: 700; letter-spacing: -0.02em;
+      color: var(--white); margin-top: 0.5rem;
+    }
+    .section-link {
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); transition: color 0.15s;
+    }
+    .section-link:hover { color: var(--accent); }
+
+    /* ── WORK GRID ── */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 200px;
+      gap: 2px;
+    }
+    .work-item {
+      position: relative; overflow: hidden;
+      background: var(--surface); cursor: pointer;
+    }
+    .work-item:nth-child(1) { grid-column: span 7; grid-row: span 2; }
+    .work-item:nth-child(2) { grid-column: span 5; }
+    .work-item:nth-child(3) { grid-column: span 5; }
+    .work-item:nth-child(4) { grid-column: span 4; grid-row: span 2; }
+    .work-item:nth-child(5) { grid-column: span 4; }
+    .work-item:nth-child(6) { grid-column: span 4; }
+
+    .work-bg {
+      position: absolute; inset: 0;
+      transition: transform 0.5s ease;
+    }
+    .work-item:hover .work-bg { transform: scale(1.04); }
+    .work-item:nth-child(1) .work-bg { background: linear-gradient(160deg, #1A1A1A 0%, #242424 50%, #0E0E0E 100%); }
+    .work-item:nth-child(2) .work-bg { background: linear-gradient(140deg, #181818 0%, #0A0A0A 100%); }
+    .work-item:nth-child(3) .work-bg { background: linear-gradient(140deg, #1A1A1A 0%, #0C0C0C 100%); }
+    .work-item:nth-child(4) .work-bg { background: linear-gradient(160deg, #181818 0%, #0E0E0E 100%); }
+    .work-item:nth-child(5) .work-bg { background: linear-gradient(140deg, #141414 0%, #080808 100%); }
+    .work-item:nth-child(6) .work-bg { background: linear-gradient(140deg, #1A1A1A 0%, #0A0A0A 100%); }
+
+    .work-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+      padding: 1.25rem;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .work-item:hover .work-overlay { opacity: 1; }
+    .work-tag {
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 4px;
+    }
+    .work-name { font-size: 14px; font-weight: 700; color: var(--white); }
+
+    /* Place-holder texture for work items (CSS only, no external images) */
+    .work-item::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+    }
+    .service-item {
+      padding: 2rem;
+      border-right: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .service-item:last-child { border-right: none; }
+    .service-item:hover { background: var(--surface); }
+    .service-num {
+      font-size: 11px; letter-spacing: 0.12em; color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+    .service-title {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 700;
+      color: var(--white); margin-bottom: 0.75rem;
+    }
+    .service-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.25rem; }
+    .tag {
+      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--dim); border: 1px solid var(--border);
+      padding: 3px 10px; transition: all 0.15s;
+    }
+    .service-item:hover .tag { border-color: var(--border2); color: var(--muted); }
+
+    /* ── PRICING & PROCESS ── */
+    .pricing-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+    .pricing-left {
+      padding: clamp(2rem, 5vw, 3.5rem);
+      border-right: 1px solid var(--border);
+    }
+    .pricing-right {
+      padding: clamp(2rem, 5vw, 3.5rem);
+      background: var(--surface);
+    }
+    .pricing-intro {
+      font-size: 14px; color: var(--muted); line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .pricing-intro strong { color: var(--white); }
+    .pricing-row {
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .pricing-row:first-of-type { border-top: none; padding-top: 0; }
+    .pricing-row-header {
+      display: flex; align-items: baseline;
+      justify-content: space-between; gap: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .pricing-row-title {
+      font-size: 15px; font-weight: 700; color: var(--white);
+    }
+    .pricing-row-range {
+      font-family: var(--font-display);
+      font-size: 15px; font-weight: 700; color: var(--white);
+      white-space: nowrap;
+    }
+    .pricing-row-desc {
+      font-size: 12px; color: var(--muted); line-height: 1.6;
+    }
+    .pricing-minimum {
+      margin-top: 2rem; padding: 1.25rem;
+      border: 1px solid var(--border2);
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .pricing-minimum-label {
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); flex-shrink: 0;
+    }
+    .pricing-minimum-value {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 700; color: var(--white);
+    }
+    .pricing-minimum-note {
+      font-size: 12px; color: var(--muted); margin-left: auto;
+    }
+
+    /* process steps */
+    .process-label {
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.5rem;
+    }
+    .process-steps { list-style: none; }
+    .process-step {
+      display: flex; gap: 1rem; padding: 1rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .process-step:first-child { border-top: none; padding-top: 0; }
+    .process-num {
+      font-size: 11px; letter-spacing: 0.1em; color: var(--accent);
+      flex-shrink: 0; padding-top: 2px; width: 20px;
+    }
+    .process-step-body {}
+    .process-step-title {
+      font-size: 14px; font-weight: 700; color: var(--white);
+      margin-bottom: 3px;
+    }
+    .process-step-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .pricing-cta { margin-top: 2rem; }
+    .pricing-cta a {
+      display: inline-block; width: 100%; text-align: center;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 13px; border: 1px solid var(--border2); color: var(--white);
+      transition: all 0.15s;
+    }
+    .pricing-cta a:hover { background: var(--accent); border-color: var(--accent); }
+
+    /* contact form — budget dropdown */
+    .form-budget-note {
+      font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.5;
+    }
+    .form-required {
+      color: var(--accent); font-size: 10px; margin-left: 4px;
+    }
+
+    /* ── SHOP PREVIEW ── */
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+      position: relative;
+    }
+    .product-card:hover { border-color: var(--accent); }
+    .product-thumb {
+      aspect-ratio: 1;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; position: relative; overflow: hidden;
+    }
+    .product-thumb-bg { position: absolute; inset: 0; }
+    .product-thumb-icon { position: relative; z-index: 1; }
+    .product-body { padding: 1rem; }
+    .product-type-badge {
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 6px;
+    }
+    .product-name-text {
+      font-size: 14px; font-weight: 700; color: var(--white);
+      margin-bottom: 4px; line-height: 1.3;
+    }
+    .product-price-text {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 700;
+      color: var(--white); margin-top: 0.5rem;
+    }
+    .product-price-text span { font-size: 12px; font-weight: 400; color: var(--muted); }
+    .product-link {
+      display: block; margin-top: 0.75rem;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); transition: color 0.15s;
+    }
+    .product-link:hover { color: var(--accent); }
+    .badge-new {
+      position: absolute; top: 10px; right: 10px;
+      background: var(--white); color: var(--black);
+      font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 8px;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      border: 1px solid var(--border);
+    }
+    .about-left {
+      border-right: 1px solid var(--border);
+      padding: clamp(2rem, 5vw, 4rem);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .about-quote {
+      font-family: var(--font-body);
+      font-size: clamp(18px, 2.5vw, 26px);
+      color: var(--white); line-height: 1.4;
+      font-style: italic; margin-bottom: 2rem;
+    }
+    .about-quote strong { color: var(--accent); font-style: normal; }
+    .about-bio { font-size: 14px; color: var(--muted); line-height: 1.8; }
+    .about-bio p + p { margin-top: 1rem; }
+    .about-socials { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+    .social-link {
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); border: 1px solid var(--border);
+      padding: 8px 16px; transition: all 0.15s;
+    }
+    .social-link:hover { color: var(--accent); border-color: var(--accent); }
+    .about-right { position: relative; min-height: 400px; overflow: hidden; }
+    .about-visual {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, #1C1C1C 0%, #0E0E0E 60%, #141414 100%);
+    }
+    .about-visual-text {
+      position: absolute; bottom: 2rem; left: 2rem;
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* ── GEAR REVIEWS ── */
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .review-card {
+      background: var(--surface); padding: 1.5rem;
+      transition: background 0.2s;
+    }
+    .review-card:hover { background: var(--card); }
+    .review-meta {
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.75rem;
+      display: flex; gap: 1rem;
+    }
+    .review-tag { color: var(--muted); }
+    .review-title {
+      font-size: 16px; font-weight: 700; color: var(--white);
+      line-height: 1.3; margin-bottom: 0.5rem;
+    }
+    .review-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .review-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1.25rem; padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    .review-platform {
+      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--dim);
+    }
+    .review-arrow { color: var(--muted); font-size: 18px; transition: color 0.15s; }
+    .review-card:hover .review-arrow { color: var(--accent); }
+
+    /* ── MAILING LIST ── */
+    .mail-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .mail-inner {
+      max-width: 600px; margin: 0 auto;
+      padding: clamp(3rem, 6vw, 5rem) var(--gap);
+      text-align: center;
+    }
+    .mail-label {
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1rem;
+    }
+    .mail-headline {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 700; letter-spacing: -0.02em;
+      color: var(--white); margin-bottom: 0.75rem;
+    }
+    .mail-sub { font-size: 14px; color: var(--muted); margin-bottom: 2rem; }
+    .mail-form { display: flex; gap: 0; max-width: 440px; margin: 0 auto; }
+    .mail-input {
+      flex: 1; padding: 13px 16px;
+      background: var(--black); border: 1px solid var(--border2);
+      border-right: none; color: var(--white); font-size: 14px;
+      font-family: inherit; outline: none;
+      transition: border-color 0.15s;
+    }
+    .mail-input::placeholder { color: var(--muted); }
+    .mail-input:focus { border-color: var(--accent); }
+    .mail-btn {
+      background: var(--white); color: var(--black);
+      border: 1px solid var(--white); padding: 13px 22px;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      transition: all 0.15s;
+    }
+    .mail-btn:hover { background: var(--accent); border-color: var(--accent); color: var(--white); }
+    .mail-success {
+      display: none; margin-top: 1rem;
+      font-size: 13px; color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+    .mail-note { font-size: 11px; color: var(--dim); margin-top: 1rem; }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; border: 1px solid var(--border);
+    }
+    .contact-left {
+      padding: clamp(2rem, 5vw, 4rem);
+      border-right: 1px solid var(--border);
+    }
+    .contact-headline {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 700; letter-spacing: -0.02em;
+      color: var(--white); margin-bottom: 1rem;
+    }
+    .contact-text { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 2rem; }
+    .contact-detail {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 13px; color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .contact-icon { color: var(--muted); font-size: 16px; }
+    .contact-right { padding: clamp(2rem, 5vw, 4rem); }
+    .form-row { margin-bottom: 1.25rem; }
+    .form-label {
+      display: block; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 6px;
+    }
+    .form-input {
+      width: 100%; padding: 11px 14px;
+      background: var(--black); border: 1px solid var(--border);
+      color: var(--white); font-size: 14px; font-family: inherit;
+      outline: none; transition: border-color 0.15s;
+    }
+    .form-input:focus { border-color: var(--accent); }
+    select.form-input { appearance: none; }
+    textarea.form-input { resize: vertical; min-height: 110px; }
+    .form-submit {
+      width: 100%; background: var(--white); color: var(--black);
+      border: 1px solid var(--white); padding: 13px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      transition: all 0.15s; margin-top: 0.5rem;
+    }
+    .form-submit:hover { background: var(--accent); border-color: var(--accent); color: var(--white); }
+    .form-submit:disabled { cursor: not-allowed; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+    }
+    .footer-inner {
+      max-width: var(--page); margin: 0 auto; padding: 0 var(--gap);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display); font-size: 14px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-copy { font-size: 11px; color: var(--dim); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 1.5rem; right: 1.5rem;
+      background: var(--surface); border: 1px solid var(--accent);
+      color: var(--white); padding: 12px 20px;
+      font-size: 13px; z-index: 200;
+      transform: translateY(20px); opacity: 0;
+      transition: all 0.25s;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-main { grid-template-columns: 1fr; }
+      .hero-right { min-height: 320px; }
+      .hero-stats { grid-template-columns: repeat(3, 1fr); }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .service-item:last-child { border-bottom: none; }
+      .pricing-layout { grid-template-columns: 1fr; }
+      .pricing-left { border-right: none; border-bottom: 1px solid var(--border); }
+      .pricing-minimum { flex-wrap: wrap; }
+      .pricing-minimum-note { margin-left: 0; }
+      .shop-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-right { min-height: 240px; }
+      .about-left { border-right: none; border-bottom: 1px solid var(--border); }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-left { border-right: none; border-bottom: 1px solid var(--border); }
+      .work-grid { grid-template-columns: repeat(6, 1fr); }
+      .work-item:nth-child(1) { grid-column: span 6; grid-row: span 1; }
+      .work-item:nth-child(2),
+      .work-item:nth-child(3) { grid-column: span 3; }
+      .work-item:nth-child(4) { grid-column: span 6; grid-row: span 1; }
+      .work-item:nth-child(5),
+      .work-item:nth-child(6) { grid-column: span 3; }
+      .nav-links { display: none; }
+      .nav-mobile-toggle { display: block; }
+    }
+
+    @media (max-width: 540px) {
+      .shop-grid { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .hero-stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .mail-form { flex-direction: column; }
+      .mail-input { border-right: 1px solid var(--border2); }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track { animation: none; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Jay<span>Regular</span></a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#rates">Rates</a>
+      <a href="#shop">Shop</a>
+      <a href="#about">About</a>
+      <a href="#gear">Reviews</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="btn nav-cta" onclick="scrollTo('#contact')">Hire me</button>
+    <button class="nav-mobile-toggle" aria-label="Menu" onclick="toggleMobileMenu()">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-main">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Sydney, NSW — Available worldwide</p>
+      <h1 class="hero-headline">
+        Visual<br>
+        storytelling<br>
+        <em>without filter.</em>
+      </h1>
+      <p class="hero-desc">
+        Photography, videography and content creation for brands, publications and creators
+        who want images that feel as honest as they are beautiful.
+      </p>
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-accent">View work</a>
+        <a href="https://jayregular.gumroad.com" target="_blank" rel="noopener" class="btn btn-ghost">Shop presets & LUTs</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-visual">
+        <!-- Replace with: <img src="your-hero-image.jpg" alt="..." loading="eager"> -->
+        <span class="hero-visual-label">Replace this with your hero image</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="stat-num">7<span>+</span></div>
+      <div class="stat-label">Years shooting</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-num">10<span>+</span></div>
+      <div class="stat-label">Clients served</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-num">20.5<span>k</span></div>
+      <div class="stat-label">YouTube subscribers</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Editorial photography</span>
+    <span class="marquee-item">Street photography</span>
+    <span class="marquee-item">Brand videography</span>
+    <span class="marquee-item">Gear reviews</span>
+    <span class="marquee-item">Lightroom presets</span>
+    <span class="marquee-item">LUT packs</span>
+    <span class="marquee-item">Masterclasses</span>
+    <span class="marquee-item">Tutorial guides</span>
+    <span class="marquee-item">Editorial photography</span>
+    <span class="marquee-item">Street photography</span>
+    <span class="marquee-item">Brand videography</span>
+    <span class="marquee-item">Gear reviews</span>
+    <span class="marquee-item">Lightroom presets</span>
+    <span class="marquee-item">LUT packs</span>
+    <span class="marquee-item">Masterclasses</span>
+    <span class="marquee-item">Tutorial guides</span>
+  </div>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Selected work</p>
+        <h2 class="section-title">The portfolio</h2>
+      </div>
+      <a href="https://www.instagram.com/jay.regular" target="_blank" rel="noopener" class="section-link">All work on Instagram →</a>
+    </div>
+    <div class="work-grid">
+      <div class="work-item">
+        <div class="work-bg">
+          <!-- Replace with: <img src="work-01.jpg" alt="..." loading="lazy"> -->
+        </div>
+        <div class="work-overlay">
+          <span class="work-tag">Editorial</span>
+          <span class="work-name">Urban Portraits — Sydney 2024</span>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-bg"></div>
+        <div class="work-overlay">
+          <span class="work-tag">Street</span>
+          <span class="work-name">After Dark Series</span>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-bg"></div>
+        <div class="work-overlay">
+          <span class="work-tag">Documentary</span>
+          <span class="work-name">Night Markets</span>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-bg"></div>
+        <div class="work-overlay">
+          <span class="work-tag">Brand film</span>
+          <span class="work-name">Campaign Reel</span>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-bg"></div>
+        <div class="work-overlay">
+          <span class="work-tag">Street</span>
+          <span class="work-name">Fragments — Tokyo</span>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-bg"></div>
+        <div class="work-overlay">
+          <span class="work-tag">Editorial</span>
+          <span class="work-name">Studio Sessions</span>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--dim);margin-top:1rem;text-align:right;">Replace placeholder cells with your own images — see the comment in the code for each. Keep to 6-8 hero shots here; link out to Instagram for the full archive.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <p class="section-label">What I offer</p>
+        <h2 class="section-title">Services</h2>
+      </div>
+    </div>
+    <div class="services-grid">
+      <div class="service-item">
+        <p class="service-num">01</p>
+        <h3 class="service-title">Photography</h3>
+        <p class="service-desc">Editorial, street, portrait and commercial shoots. Documentary coverage for events, brands and publications. Delivered print-ready and web-optimised.</p>
+        <div class="service-tags">
+          <span class="tag">Editorial</span>
+          <span class="tag">Street</span>
+          <span class="tag">Portrait</span>
+          <span class="tag">Commercial</span>
+        </div>
+      </div>
+      <div class="service-item">
+        <p class="service-num">02</p>
+        <h3 class="service-title">Videography</h3>
+        <p class="service-desc">Brand films, social reels, event coverage and documentary work. Full production from concept to colour grade, with short-form and long-form delivery.</p>
+        <div class="service-tags">
+          <span class="tag">Brand films</span>
+          <span class="tag">Reels</span>
+          <span class="tag">Events</span>
+          <span class="tag">Documentary</span>
+        </div>
+      </div>
+      <div class="service-item">
+        <p class="service-num">03</p>
+        <h3 class="service-title">Content creation</h3>
+        <p class="service-desc">Social-first content strategy, shooting and editing for brands and creators. Platform-native formats across Instagram, YouTube and TikTok.</p>
+        <div class="service-tags">
+          <span class="tag">Social</span>
+          <span class="tag">Strategy</span>
+          <span class="tag">YouTube</span>
+          <span class="tag">TikTok</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING & PROCESS -->
+<section id="rates">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Investment</p>
+        <h2 class="section-title">Pricing & process</h2>
+      </div>
+    </div>
+    <div class="pricing-layout">
+
+      <!-- LEFT: ranges + minimum -->
+      <div class="pricing-left">
+        <p class="pricing-intro">
+          Every project is scoped and quoted individually — scope, usage rights,
+          location and timeline all affect the final number.
+          These ranges reflect what <strong>most projects actually cost</strong>,
+          so you know whether we're in the same ballpark before reaching out.
+        </p>
+
+        <div class="pricing-row">
+          <div class="pricing-row-header">
+            <span class="pricing-row-title">Photography &amp; editorial</span>
+            <span class="pricing-row-range">A$1,200 – A$3,000</span>
+          </div>
+          <p class="pricing-row-desc">Portrait, street, editorial and event shoots. Includes edited high-res gallery and standard licensing. Multi-day and campaign work quoted separately.</p>
+        </div>
+
+        <div class="pricing-row">
+          <div class="pricing-row-header">
+            <span class="pricing-row-title">Brand content</span>
+            <span class="pricing-row-range">A$2,000 – A$5,000</span>
+          </div>
+          <p class="pricing-row-desc">Photo and video combined in a single shoot day. Social-ready edits, paid-ad usage rights and a pre-shoot strategy call included.</p>
+        </div>
+
+        <div class="pricing-row">
+          <div class="pricing-row-header">
+            <span class="pricing-row-title">Videography</span>
+            <span class="pricing-row-range">A$2,500 – A$8,000+</span>
+          </div>
+          <p class="pricing-row-desc">Brand films, documentary coverage, reels and event video. Full production, colour grade and one round of revisions. Complex multi-day productions quoted on request.</p>
+        </div>
+
+        <div class="pricing-minimum">
+          <span class="pricing-minimum-label">Minimum<br>engagement</span>
+          <span class="pricing-minimum-value">A$1,200</span>
+          <span class="pricing-minimum-note">All project types.<br>Travel &amp; licensing extra.</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: process -->
+      <div class="pricing-right">
+        <p class="process-label">How it works</p>
+        <ol class="process-steps">
+          <li class="process-step">
+            <span class="process-num">01</span>
+            <div class="process-step-body">
+              <p class="process-step-title">Send an enquiry</p>
+              <p class="process-step-desc">Fill in the form below with your project brief and budget range. The more detail, the faster I can come back to you with a real number.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="process-num">02</span>
+            <div class="process-step-body">
+              <p class="process-step-title">Scoping call</p>
+              <p class="process-step-desc">For anything beyond a straightforward shoot, we'll do a short call to align on the brief, timeline and deliverables before any quote is sent.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="process-num">03</span>
+            <div class="process-step-body">
+              <p class="process-step-title">Proposal & deposit</p>
+              <p class="process-step-desc">You receive a written proposal with a fixed quote. A 50% deposit secures the date — no date is held without it.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <span class="process-num">04</span>
+            <div class="process-step-body">
+              <p class="process-step-title">Shoot & deliver</p>
+              <p class="process-step-desc">We shoot, I edit, you get your files. Typical turnaround is 5–7 business days. Rush delivery available at an additional rate.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="pricing-cta">
+          <a href="#contact">Start a conversation →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SHOP PREVIEW -->
+<section id="shop">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Digital downloads</p>
+        <h2 class="section-title">The shop</h2>
+      </div>
+      <a href="https://jayregular.gumroad.com" target="_blank" rel="noopener" class="section-link">Browse full store →</a>
+    </div>
+    <div class="shop-grid">
+      <div class="product-card">
+        <span class="badge-new">Guide</span>
+        <div class="product-thumb">
+          <div class="product-thumb-bg" style="background:linear-gradient(145deg,#1C1C1C,#0A0A0A)"></div>
+          <span class="product-thumb-icon">📷</span>
+        </div>
+        <div class="product-body">
+          <p class="product-type-badge">PDF guide</p>
+          <p class="product-name-text">Ricoh GR IIIx Street Settings Quickstart Guide</p>
+          <p class="product-price-text"><span>digital download</span></p>
+          <a href="https://jayregular.gumroad.com/l/guxxn" target="_blank" rel="noopener" class="product-link">Get it on Gumroad →</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <span class="badge-new">Guide</span>
+        <div class="product-thumb">
+          <div class="product-thumb-bg" style="background:linear-gradient(145deg,#181818,#060606)"></div>
+          <span class="product-thumb-icon">📷</span>
+        </div>
+        <div class="product-body">
+          <p class="product-type-badge">PDF guide</p>
+          <p class="product-name-text">Fujifilm X100V / X100VI Street Settings Quickstart Guide</p>
+          <p class="product-price-text"><span>digital download</span></p>
+          <a href="https://jayregular.gumroad.com/l/cvfobc" target="_blank" rel="noopener" class="product-link">Get it on Gumroad →</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <span class="badge-new">Coming soon</span>
+        <div class="product-thumb">
+          <div class="product-thumb-bg" style="background:linear-gradient(145deg,#1A1A1A,#0C0C0C)"></div>
+          <span class="product-thumb-icon">🎞</span>
+        </div>
+        <div class="product-body">
+          <p class="product-type-badge">Lightroom presets</p>
+          <p class="product-name-text">Street & Editorial Preset Pack</p>
+          <p class="product-price-text">TBA <span>digital download</span></p>
+          <a href="#mail" class="product-link">Join waitlist →</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <span class="badge-new">Coming soon</span>
+        <div class="product-thumb">
+          <div class="product-thumb-bg" style="background:linear-gradient(145deg,#161616,#080808)"></div>
+          <span class="product-thumb-icon">🎬</span>
+        </div>
+        <div class="product-body">
+          <p class="product-type-badge">LUT pack</p>
+          <p class="product-name-text">Cinematic LUT Pack Vol. 1</p>
+          <p class="product-price-text">TBA <span>digital download</span></p>
+          <a href="#mail" class="product-link">Join waitlist →</a>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2rem">
+      <a href="https://jayregular.gumroad.com" target="_blank" rel="noopener" class="btn btn-ghost">View all products on Gumroad</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <p class="section-label">The person behind the lens</p>
+        <h2 class="section-title">About</h2>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div class="about-left">
+        <div>
+          <p class="about-quote">
+            "I'm drawn to the moments <strong>between</strong> the moments —
+            the pause, the glance, the ordinary made extraordinary by light."
+          </p>
+          <div class="about-bio">
+            <p>
+              I'm Yu (Jay) Fei — photographer, videographer and content creator based in Sydney,
+              with 7 years behind the lens shooting editorial, street and documentary work for
+              brands, publications and artists who care about how their story is told.
+            </p>
+            <p>
+              Beyond client work, I share my process through gear reviews, tutorials and long-form
+              content on YouTube — 20,500 subscribers and counting — breaking down the craft
+              without the gatekeeping.
+            </p>
+            <p>
+              When I'm not shooting, I'm building tools to help other creators work better:
+              camera settings guides, presets, LUTs and courses distilled from years in the field.
+            </p>
+          </div>
+        </div>
+        <div class="about-socials">
+          <a href="https://www.youtube.com/@jayregular" target="_blank" rel="noopener" class="social-link">YouTube</a>
+          <a href="https://www.instagram.com/jay.regular" target="_blank" rel="noopener" class="social-link">Instagram</a>
+          <a href="https://jayregular.substack.com" target="_blank" rel="noopener" class="social-link">Substack</a>
+          <a href="https://jayregular.gumroad.com" target="_blank" rel="noopener" class="social-link">Gumroad</a>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="about-visual">
+          <!-- Replace with: <img src="portrait.jpg" alt="..." loading="lazy"> -->
+          <p class="about-visual-text">Add your portrait photo here</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GEAR REVIEWS -->
+<section id="gear">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Gear & tech</p>
+        <h2 class="section-title">Reviews</h2>
+      </div>
+      <a href="https://www.youtube.com/@jayregular" target="_blank" rel="noopener" class="section-link">All reviews on YouTube →</a>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-meta">
+          <span class="review-tag">Camera</span>
+          <span>Long-form review</span>
+        </div>
+        <h3 class="review-title">Sony A7C II — Is it the perfect travel camera?</h3>
+        <p class="review-desc">Full review of Sony's compact full-frame. Real-world shooting across street, portrait and video for six weeks.</p>
+        <div class="review-footer">
+          <span class="review-platform">YouTube</span>
+          <a href="https://www.youtube.com/@jayregular" target="_blank" rel="noopener" class="review-arrow">→</a>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-meta">
+          <span class="review-tag">Lens</span>
+          <span>Short-form</span>
+        </div>
+        <h3 class="review-title">The 35mm lens that changed how I shoot street</h3>
+        <p class="review-desc">Why a single focal length forced me to slow down and find better frames — plus which 35mm I actually use.</p>
+        <div class="review-footer">
+          <span class="review-platform">YouTube</span>
+          <a href="https://www.youtube.com/@jayregular" target="_blank" rel="noopener" class="review-arrow">→</a>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-meta">
+          <span class="review-tag">Workflow</span>
+          <span>Tutorial</span>
+        </div>
+        <h3 class="review-title">My full editing workflow — from SD card to final export</h3>
+        <p class="review-desc">End-to-end breakdown of how I cull, edit and export. The exact tools, presets and settings I use on every project.</p>
+        <div class="review-footer">
+          <span class="review-platform">YouTube</span>
+          <a href="https://www.youtube.com/@jayregular" target="_blank" rel="noopener" class="review-arrow">→</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAILING LIST -->
+<section class="mail-section" id="mail">
+  <div class="mail-inner">
+    <p class="mail-label">The newsletter</p>
+    <h2 class="mail-headline">Stay in the frame</h2>
+    <p class="mail-sub">New work, behind-the-scenes, gear thoughts and occasional essays on craft. Straight to your inbox. No spam, ever.</p>
+    <div class="mail-form">
+      <input class="mail-input" type="email" placeholder="your@email.com" id="mail-email" aria-label="Email address">
+      <button class="mail-btn" onclick="handleSubscribe()">Subscribe</button>
+    </div>
+    <p class="mail-success" id="mail-success">You're in. Welcome to the list.</p>
+    <p class="mail-note">Hosted on Substack. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Work together</p>
+        <h2 class="section-title">Get in touch</h2>
+      </div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-left">
+        <h3 class="contact-headline">Let's make something worth looking at.</h3>
+        <p class="contact-text">
+          Open to editorial commissions, brand campaigns, event coverage and creative collaborations.
+          Drop me a message and I'll get back within 48 hours.
+        </p>
+        <div class="contact-detail">
+          <span class="contact-icon">✉</span>
+          jayufei@gmail.com
+        </div>
+        <div class="contact-detail">
+          <span class="contact-icon">◎</span>
+          Sydney, NSW — available worldwide
+        </div>
+        <div class="contact-detail">
+          <span class="contact-icon">▶</span>
+          <a href="https://www.youtube.com/@jayregular" target="_blank" rel="noopener" style="color:var(--muted)">youtube.com/@jayregular</a>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-icon">◈</span>
+          <a href="https://www.instagram.com/jay.regular" target="_blank" rel="noopener" style="color:var(--muted)">instagram.com/jay.regular</a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <form id="contact-form">
+        <div class="form-row">
+          <label class="form-label" for="c-name">Name <span class="form-required">*</span></label>
+          <input class="form-input" type="text" id="c-name" name="name" placeholder="Your name" data-fs-field required>
+          <span data-fs-error="name" style="font-size:11px;color:#E84040;margin-top:4px;display:block;"></span>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="c-email">Email <span class="form-required">*</span></label>
+          <input class="form-input" type="email" id="c-email" name="email" placeholder="your@email.com" data-fs-field required>
+          <span data-fs-error="email" style="font-size:11px;color:#E84040;margin-top:4px;display:block;"></span>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="c-type">Project type <span class="form-required">*</span></label>
+          <select class="form-input" id="c-type" name="project_type" data-fs-field required>
+            <option value="">Select a category</option>
+            <option>Photography &amp; editorial</option>
+            <option>Brand content (photo + video)</option>
+            <option>Videography</option>
+            <option>Collaboration / other</option>
+          </select>
+          <span data-fs-error="project_type" style="font-size:11px;color:#E84040;margin-top:4px;display:block;"></span>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="c-budget">Budget range <span class="form-required">*</span></label>
+          <select class="form-input" id="c-budget" name="budget_range" data-fs-field required>
+            <option value="">Select a range</option>
+            <option value="A$1,200 – A$2,000">A$1,200 – A$2,000</option>
+            <option value="A$2,000 – A$3,500">A$2,000 – A$3,500</option>
+            <option value="A$3,500 – A$6,000">A$3,500 – A$6,000</option>
+            <option value="A$6,000+">A$6,000+</option>
+            <option value="Not sure yet — let's talk">Not sure yet — let's talk</option>
+          </select>
+          <p class="form-budget-note">Minimum engagement is A$1,200. Selecting a range helps me tailor the quote — no commitment at this stage.</p>
+          <span data-fs-error="budget_range" style="font-size:11px;color:#E84040;margin-top:4px;display:block;"></span>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="c-msg">Tell me about your project <span class="form-required">*</span></label>
+          <textarea class="form-input" id="c-msg" name="message" placeholder="Brief, timeline, deliverables — the more detail the better" data-fs-field required></textarea>
+          <span data-fs-error="message" style="font-size:11px;color:#E84040;margin-top:4px;display:block;"></span>
+        </div>
+        <button type="submit" class="form-submit" data-fs-submit-btn>Send enquiry</button>
+        <p data-fs-success style="display:none;margin-top:1rem;font-size:13px;color:var(--accent);letter-spacing:0.04em;">
+          Message received — I'll be in touch within 48 hours.
+        </p>
+        <div data-fs-error style="display:none;margin-top:1rem;font-size:13px;color:#E84040;letter-spacing:0.04em;">
+          Something went wrong. Please email me directly at <a href="mailto:jayufei@gmail.com" style="color:#E84040;text-decoration:underline;">jayufei@gmail.com</a>.
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">JayRegular</span>
+    <div class="footer-links">
+      <a href="#work">Work</a>
+      <a href="#rates">Rates</a>
+      <a href="https://jayregular.gumroad.com" target="_blank" rel="noopener">Shop</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <span class="footer-copy">© 2026 Yu (Jay) Fei — JayRegular</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  function toast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 3200);
+  }
+
+  function scrollTo(sel) {
+    document.querySelector(sel)?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function handleSubscribe() {
+    const val = document.getElementById('mail-email').value;
+    if (!val || !val.includes('@')) { toast('Enter a valid email address.'); return; }
+    window.open('https://jayregular.substack.com', '_blank');
+    document.getElementById('mail-success').style.display = 'block';
+    document.querySelector('.mail-form').style.display = 'none';
+  }
+
+  // ── CONTACT FORM → FORMSPREE SDK ──
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+  formspree('initForm', { formElement: '#contact-form', formId: 'mlgyovld' });
+
+  function toggleMobileMenu() {
+    const links = document.querySelector('.nav-links');
+    if (links.style.display === 'flex') {
+      links.style.display = '';
+    } else {
+      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:56px;left:0;right:0;background:#111;padding:1.5rem 2rem;gap:1.5rem;border-bottom:1px solid #242424;z-index:99';
+    }
+  }
+
+  // close mobile nav on link click
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      const links = document.querySelector('.nav-links');
+      if (window.innerWidth <= 900) links.style.display = '';
+    });
+  });
+</script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+</body>
+</html>
