@@ -732,8 +732,8 @@
     </div>
     <div class="hero-right">
       <div class="hero-visual">
-        <!-- Replace with: <img src="your-hero-image.jpg" alt="..." loading="eager"> -->
-        <span class="hero-visual-label">Replace this with your hero image</span>
+        <img src="images/hero.jpg" alt="Street portrait through rain-streaked glass — JayRegular" loading="eager" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;">
+        <span class="hero-visual-label" style="position:relative;z-index:1;">Sydney, 2024</span>
       </div>
     </div>
   </div>
@@ -788,50 +788,60 @@
     <div class="work-grid">
       <div class="work-item">
         <div class="work-bg">
-          <!-- Replace with: <img src="work-01.jpg" alt="..." loading="lazy"> -->
+          <img src="images/work-01.jpg" alt="Man ascending staircase, green wall, warm light" loading="lazy">
         </div>
-        <div class="work-overlay">
-          <span class="work-tag">Editorial</span>
-          <span class="work-name">Urban Portraits — Sydney 2024</span>
-        </div>
-      </div>
-      <div class="work-item">
-        <div class="work-bg"></div>
-        <div class="work-overlay">
-          <span class="work-tag">Street</span>
-          <span class="work-name">After Dark Series</span>
-        </div>
-      </div>
-      <div class="work-item">
-        <div class="work-bg"></div>
         <div class="work-overlay">
           <span class="work-tag">Documentary</span>
-          <span class="work-name">Night Markets</span>
+          <span class="work-name">The Ascent</span>
         </div>
       </div>
       <div class="work-item">
-        <div class="work-bg"></div>
-        <div class="work-overlay">
-          <span class="work-tag">Brand film</span>
-          <span class="work-name">Campaign Reel</span>
+        <div class="work-bg">
+          <img src="images/work-02.jpg" alt="Fashion portrait on basketball court, Sydney" loading="lazy">
         </div>
-      </div>
-      <div class="work-item">
-        <div class="work-bg"></div>
-        <div class="work-overlay">
-          <span class="work-tag">Street</span>
-          <span class="work-name">Fragments — Tokyo</span>
-        </div>
-      </div>
-      <div class="work-item">
-        <div class="work-bg"></div>
         <div class="work-overlay">
           <span class="work-tag">Editorial</span>
-          <span class="work-name">Studio Sessions</span>
+          <span class="work-name">Court No. 1 — Sydney</span>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-bg">
+          <img src="images/work-03.jpg" alt="Puddle reflection of jumping silhouette" loading="lazy">
+        </div>
+        <div class="work-overlay">
+          <span class="work-tag">Street</span>
+          <span class="work-name">Reflection — Leap</span>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-bg">
+          <img src="images/work-04.jpg" alt="Portrait with orange coloured light and blue background" loading="lazy">
+        </div>
+        <div class="work-overlay">
+          <span class="work-tag">Portrait</span>
+          <span class="work-name">Ember</span>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-bg">
+          <img src="images/work-05.jpg" alt="Half-lit face emerging from darkness, B&W" loading="lazy">
+        </div>
+        <div class="work-overlay">
+          <span class="work-tag">Portrait</span>
+          <span class="work-name">Half Light</span>
+        </div>
+      </div>
+      <div class="work-item">
+        <div class="work-bg">
+          <img src="images/work-06.jpg" alt="B&W editorial portrait, direct gaze, outdoor" loading="lazy">
+        </div>
+        <div class="work-overlay">
+          <span class="work-tag">Editorial</span>
+          <span class="work-name">Harbour Light</span>
         </div>
       </div>
     </div>
-    <p style="font-size:11px;color:var(--dim);margin-top:1rem;text-align:right;">Replace placeholder cells with your own images — see the comment in the code for each. Keep to 6-8 hero shots here; link out to Instagram for the full archive.</p>
+    <p style="font-size:11px;color:var(--dim);margin-top:1rem;text-align:right;">Selected work — <a href="https://www.instagram.com/jay.regular" target="_blank" rel="noopener" style="color:var(--muted);">see more on Instagram</a></p>
   </div>
 </section>
 
@@ -1081,7 +1091,7 @@
         <div class="about-socials">
           <a href="https://www.youtube.com/@jayregular" target="_blank" rel="noopener" class="social-link">YouTube</a>
           <a href="https://www.instagram.com/jay.regular" target="_blank" rel="noopener" class="social-link">Instagram</a>
-          <a href="https://jayregular.substack.com" target="_blank" rel="noopener" class="social-link">Substack</a>
+          <a href="https://substack.com/@jayregular" target="_blank" rel="noopener" class="social-link">Substack</a>
           <a href="https://jayregular.gumroad.com" target="_blank" rel="noopener" class="social-link">Gumroad</a>
         </div>
       </div>
@@ -1280,7 +1290,7 @@
   function handleSubscribe() {
     const val = document.getElementById('mail-email').value;
     if (!val || !val.includes('@')) { toast('Enter a valid email address.'); return; }
-    window.open('https://jayregular.substack.com', '_blank');
+    window.open('https://substack.com/@jayregular', '_blank');
     document.getElementById('mail-success').style.display = 'block';
     document.querySelector('.mail-form').style.display = 'none';
   }
