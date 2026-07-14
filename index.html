@@ -270,6 +270,59 @@
       color: var(--accent); margin-bottom: 4px;
     }
     .work-name { font-size: 14px; font-weight: 700; color: var(--white); }
+    .work-item { cursor: zoom-in; }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,0.95);
+      align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-inner {
+      position: relative; max-width: 90vw; max-height: 90vh;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .lightbox-img {
+      max-width: 90vw; max-height: 82vh;
+      object-fit: contain;
+      display: block;
+      user-select: none; -webkit-user-select: none;
+    }
+    .lightbox-caption {
+      margin-top: 1rem; text-align: center;
+    }
+    .lightbox-tag {
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 4px; display: block;
+    }
+    .lightbox-name { font-size: 14px; font-weight: 700; color: var(--white); }
+    .lightbox-close {
+      position: fixed; top: 1.5rem; right: 1.5rem;
+      background: none; border: 1px solid var(--border2);
+      color: var(--white); font-size: 20px; line-height: 1;
+      width: 40px; height: 40px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s; z-index: 1000;
+    }
+    .lightbox-close:hover { border-color: var(--accent); color: var(--accent); }
+    .lightbox-nav {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      background: none; border: 1px solid var(--border2);
+      color: var(--white); font-size: 20px;
+      width: 44px; height: 44px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s; z-index: 1000;
+    }
+    .lightbox-nav:hover { border-color: var(--accent); color: var(--accent); }
+    .lightbox-prev { left: 1.5rem; }
+    .lightbox-next { right: 1.5rem; }
+    .lightbox-counter {
+      position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted);
+    }
 
     /* Place-holder texture for work items (CSS only, no external images) */
     .work-item::before {
@@ -1235,6 +1288,21 @@
   </div>
 </section>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBackdrop(event)">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)" aria-label="Previous">←</button>
+  <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)" aria-label="Next">→</button>
+  <div class="lightbox-inner">
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    <div class="lightbox-caption">
+      <span class="lightbox-tag" id="lightbox-tag"></span>
+      <span class="lightbox-name" id="lightbox-name"></span>
+    </div>
+  </div>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -1292,6 +1360,71 @@
       if (window.innerWidth <= 900) links.style.display = '';
     });
   });
+
+  // ── LIGHTBOX ──
+  const lightboxData = [];
+  let lightboxIndex = 0;
+
+  function buildLightbox() {
+    document.querySelectorAll('.work-item').forEach((item, i) => {
+      const img    = item.querySelector('img');
+      const tag    = item.querySelector('.work-tag');
+      const name   = item.querySelector('.work-name');
+      if (!img) return;
+      lightboxData.push({
+        src:  img.src,
+        alt:  img.alt,
+        tag:  tag  ? tag.textContent  : '',
+        name: name ? name.textContent : ''
+      });
+      item.addEventListener('click', () => openLightbox(lightboxData.length - 1));
+    });
+  }
+
+  function openLightbox(index) {
+    lightboxIndex = index;
+    updateLightbox();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeLightboxOnBackdrop(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  function lightboxNav(dir) {
+    lightboxIndex = (lightboxIndex + dir + lightboxData.length) % lightboxData.length;
+    updateLightbox();
+  }
+
+  function updateLightbox() {
+    const d = lightboxData[lightboxIndex];
+    const img = document.getElementById('lightbox-img');
+    img.src = d.src;
+    img.alt = d.alt;
+    document.getElementById('lightbox-tag').textContent  = d.tag;
+    document.getElementById('lightbox-name').textContent = d.name;
+    document.getElementById('lightbox-counter').textContent = `${lightboxIndex + 1} / ${lightboxData.length}`;
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  lightboxNav(-1);
+    if (e.key === 'ArrowRight') lightboxNav(1);
+  });
+
+  // Block right-click on lightbox image too
+  document.getElementById('lightbox-img').addEventListener('contextmenu', e => e.preventDefault());
+
+  buildLightbox();
 
   // ── IMAGE PROTECTION ──
   // Disables right-click context menu and drag on all images.
