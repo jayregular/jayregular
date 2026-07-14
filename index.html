@@ -43,6 +43,7 @@
 
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; width: 100%; height: 100%; object-fit: cover; }
+    img { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
     button { cursor: pointer; font-family: inherit; }
 
     /* ── LAYOUT ── */
@@ -1291,6 +1292,24 @@
       if (window.innerWidth <= 900) links.style.display = '';
     });
   });
+
+  // ── IMAGE PROTECTION ──
+  // Disables right-click context menu and drag on all images.
+  // Note: determined users can still access images via dev tools.
+  document.addEventListener('contextmenu', e => {
+    if (e.target.tagName === 'IMG') e.preventDefault();
+  });
+  document.querySelectorAll('img').forEach(img => {
+    img.addEventListener('dragstart', e => e.preventDefault());
+  });
+  // Also block new images added dynamically (e.g. work grid hover)
+  const imgObserver = new MutationObserver(() => {
+    document.querySelectorAll('img:not([data-protected])').forEach(img => {
+      img.addEventListener('dragstart', e => e.preventDefault());
+      img.setAttribute('data-protected', '1');
+    });
+  });
+  imgObserver.observe(document.body, { childList: true, subtree: true });
 </script>
 <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </body>
