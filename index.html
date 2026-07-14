@@ -1366,18 +1366,19 @@
   let lightboxIndex = 0;
 
   function buildLightbox() {
-    document.querySelectorAll('.work-item').forEach((item, i) => {
+    document.querySelectorAll('.work-item').forEach((item) => {
       const img    = item.querySelector('img');
       const tag    = item.querySelector('.work-tag');
       const name   = item.querySelector('.work-name');
       if (!img) return;
+      const index = lightboxData.length;
       lightboxData.push({
         src:  img.src,
         alt:  img.alt,
         tag:  tag  ? tag.textContent  : '',
         name: name ? name.textContent : ''
       });
-      item.addEventListener('click', () => openLightbox(lightboxData.length - 1));
+      item.addEventListener('click', () => openLightbox(index));
     });
   }
 
