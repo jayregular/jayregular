@@ -537,11 +537,6 @@
       position: absolute; inset: 0;
       background: linear-gradient(160deg, #1C1C1C 0%, #0E0E0E 60%, #141414 100%);
     }
-    .about-visual-text {
-      position: absolute; bottom: 2rem; left: 2rem;
-      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--dim);
-    }
 
     /* ── GEAR REVIEWS ── */
     .reviews-grid {
@@ -716,7 +711,8 @@
       .pricing-minimum { flex-wrap: wrap; }
       .pricing-minimum-note { margin-left: 0; }
       .about-grid { grid-template-columns: 1fr; }
-      .about-right { min-height: 240px; }
+      .about-right { min-height: 360px; }
+      .about-right img { object-position: center 20%; }
       .about-left { border-right: none; border-bottom: 1px solid var(--border); }
       .reviews-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; }
